@@ -7,7 +7,8 @@ header { padding-top:28px; display:flex; align-items:center; justify-content:spa
 .language { color:var(--accent); font-weight:650; }
 main { margin-top:24px; margin-bottom:24px; padding-block:30px; background:var(--paper); border:1px solid var(--line); border-radius:14px; }
 nav { display:flex; flex-wrap:wrap; gap:8px 16px; margin:22px 0 30px; }
-nav a { color:var(--accent); }
+nav a, nav [aria-current="page"] { color:var(--accent); }
+nav [aria-current="page"] { font-weight:750; text-decoration:underline; text-underline-offset:3px; }
 h1 { line-height:1.2; margin-top:0; }
 h2 { margin-top:30px; line-height:1.25; }
 .notice { padding:13px 16px; border-left:4px solid #c68a20; background:#fff5dd; }
