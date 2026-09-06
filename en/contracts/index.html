@@ -1,1 +1,129 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Integration contracts — Meeple Factory</title><link rel="stylesheet" href="/meeple-factory-legal/styles.css"></head><body><header><a class="brand" href="/meeple-factory-legal/en/">Meeple Factory</a><a class="language" href="/meeple-factory-legal/contracts/" lang="fr">Français</a></header><main><h1>Privacy integration contracts</h1><p class="meta">Draft v0.1 — 6 September 2026</p><p class="notice">An orchestration contract for integrations: it does not mandate a vendor API and must be confirmed after the SDKs are frozen.</p><nav aria-label="Legal navigation"><a href="/meeple-factory-legal/en/">Home</a><a href="/meeple-factory-legal/en/privacy/">Privacy</a><a href="/meeple-factory-legal/en/terms/">Terms of use</a><a href="/meeple-factory-legal/en/support/">Support</a><span aria-current="page">Integration contracts</span></nav><h2>Age state</h2><p>Only a persisted minimum-age category is allowed. Date of birth and exact age are never retained. Until age is known, the profile is treated as protected.</p><h2>Order and independence</h2><p>First launch: 1) age; 2) UGS Analytics choice; 3) UMP only when required. Age state, UGS choice, UMP state and minimal Aptabase are independent: none infers or replaces another.</p><h2>Reconfiguration and settings</h2><p>An age correction or consent change reassesses and reconfigures affected adapters. Settings expose age, UGS, UMP, deletion and legal links. Adapters do not expose their own gameplay UI.</p><h2>Advertising and offline</h2><p>Advertising remains unavailable until age is resolved and, where applicable, UMP is resolved. Offline, external operations may be deferred or unavailable; the protective posture remains.</p><h2>Responsibilities</h2><p>UGS/UMP adapters apply their state and report availability; Aptabase remains minimal and separate. The orchestrator coordinates order, persists allowed choices, triggers reconfiguration and supplies state to settings. Final compliance, inventories, retention and store disclosures remain to be confirmed after the SDKs are frozen.</p></main><footer>© 2026 Meeple Factory</footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Meeple Factory privacy integration contracts — English draft for Android / Google Play.">
+  <meta name="referrer" content="no-referrer">
+  <title>Privacy integration contracts — Meeple Factory</title>
+  <link rel="stylesheet" href="/meeple-factory-legal/styles.css">
+  <link rel="icon" href="data:,">
+  <link rel="canonical" href="https://maugrey.github.io/meeple-factory-legal/en/contracts/">
+  <link rel="alternate" hreflang="fr" href="https://maugrey.github.io/meeple-factory-legal/contracts/">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header>
+    <a class="brand" href="/meeple-factory-legal/en/">Meeple Factory</a>
+    <a class="language" href="/meeple-factory-legal/contracts/" lang="fr" hreflang="fr">Français</a>
+  </header>
+  <main id="content">
+    <h1>Privacy integration contracts</h1>
+    <p class="meta">Draft v0.2 — published: <time datetime="2026-09-07">7 September 2026</time><br>Effective date of the final documents: to confirm before distribution.</p>
+    <p class="notice">Draft for v1.0. Game behaviour is planned and still needs verification in the released version. Items marked “to confirm” must be finalised before distribution beyond internal testing.</p>
+    <nav aria-label="Legal navigation">
+      <a href="/meeple-factory-legal/en/">Home</a>
+      <a href="/meeple-factory-legal/en/privacy/">Privacy</a>
+      <a href="/meeple-factory-legal/en/terms/">Terms of use</a>
+      <a href="/meeple-factory-legal/en/support/">Support</a>
+      <a href="/meeple-factory-legal/en/contracts/" aria-current="page">Integration contracts</a>
+    </nav>
+<p>This page is for people integrating and verifying game services. The invariants below form the v0.2 baseline usable before SDK delivery. Items in the final register still need verification before distribution; they do not make the invariants optional. State names describe a data contract, not a provider API to call from gameplay.</p>
+<h2>1. Minimum category and age resolution</h2>
+<p>Persist a versioned category of <code>protected</code>, <code>general</code> or <code>unknown</code>, separately from age-flow completion. No exact age, date of birth or input history is retained, logged or sent. Any invalid read or unknown version falls back to <code>unknown</code> with an unresolved flow before any age-dependent service.</p>
+<p class="table-hint">On small screens, scroll the table horizontally.</p>
+<div class="table-scroll" role="region" aria-label="Age categories and flow" tabindex="0"><table>
+<caption>Category and resolution are separate pieces of information</caption>
+<thead><tr><th scope="col">State</th><th scope="col">Meaning</th><th scope="col">Treatment</th></tr></thead>
+<tbody>
+<tr><th scope="row">Unresolved flow</th><td>First opening, interruption or unreadable state.</td><td>Mandatory age screen; UGS and AdMob initialisation/loading blocked. Protection by default.</td></tr>
+<tr><th scope="row"><code>protected</code>, resolved flow</th><td>Child or person below the applicable consent threshold.</td><td>No UGS; Families advertising only if UMP allows requests.</td></tr>
+<tr><th scope="row"><code>general</code>, resolved flow</th><td>Profile determined to be eligible to choose UGS.</td><td>UGS requires separate consent; AdMob depends on UMP.</td></tr>
+<tr><th scope="row"><code>unknown</code>, resolved flow</th><td>Technical fallback explicitly handled by the orchestrator after the flow, without sufficient certainty about the category.</td><td>Protected treatment; Families advertising possible after UMP authorisation. Never a way to bypass the age screen.</td></tr>
+</tbody></table></div>
+<p>The screen is neutral, with no preselected answer, incentive to answer as an adult, skip button or “prefer not to answer”. An interrupted screen returns at the next launch. A missing or corrupt state never counts as a completed flow.</p>
+<p>Numeric thresholds and territorial rules are a versioned configuration to finalise in #58, separate from the store rating. An unknown rule cannot yield <code>general</code>. The category is never sent to Aptabase or UGS, used to segment measurement or to change difficulty. Google Play Age Signals is not planned for v1.0.</p>
+<h2>2. First-launch order</h2>
+<ol>
+  <li>Load states with protection and denied UGS intent by default. Minimal Aptabase may measure launch without waiting for UGS, subject to distribution validation in the register below.</li>
+  <li>Resolve the age flow before any age-dependent initialisation.</li>
+  <li>For <code>general</code> only, offer the UGS choice once, with refusal as accessible as acceptance. Do not ask protected/unknown profiles for UGS consent.</li>
+  <li>Update UMP with the appropriate treatment; display its form only if required, then read its request authorisation.</li>
+  <li>Enter the game. A network or provider failure does not block the free path.</li>
+</ol>
+<p>Decisions are separate: age, UGS intent and UMP state. Minimal Aptabase is not a fourth consent and does not depend on UGS or UMP choices. The policy is informational; reading it, the terms or a global button never gives consent.</p>
+<p>At later launches, UMP silently refreshes its state. Refusal or a limited choice is resolved: no ordinary repeated prompts. A form returns only on request from settings or when the provider requires a new decision/expiry. An interrupted UGS choice stays unknown with no collection; only the unfinished step remains to be resolved.</p>
+<h2>3. Analytics matrix</h2>
+<p class="table-hint">On small screens, scroll the table horizontally.</p>
+<div class="table-scroll" role="region" aria-label="Analytics routing" tabindex="0"><table>
+<caption>Effective state calculated from age and the UGS choice</caption>
+<thead><tr><th scope="col">Effective UGS state</th><th scope="col">Minimal Aptabase</th><th scope="col">UGS and delivery queue</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>unknown</code></th><td>Allowed</td><td>No events or pending payloads.</td></tr>
+<tr><th scope="row"><code>protected</code></th><td>Allowed</td><td>No events or pending payloads.</td></tr>
+<tr><th scope="row"><code>denied</code></th><td>Allowed</td><td>No events; unsent queue purged.</td></tr>
+<tr><th scope="row"><code>granted</code></th><td>Allowed</td><td>Future events only, resolved <code>general</code> profile.</td></tr>
+</tbody></table></div>
+<p>“Allowed” guarantees neither network nor service availability. UGS routing is denied by default, including in provider configuration. Old consent never overrides age protection.</p>
+<ul>
+  <li><strong>Initial consent:</strong> activate UGS immediately, then emit session start and future events from the first journey.</li>
+  <li><strong>Late consent:</strong> start at that moment with the collection-start event and allowed current state, marking the session partial; no replay of past sessions, tutorials, rounds or ads.</li>
+  <li><strong>Withdrawal/refusal:</strong> immediately stop UGS and purge unsent payloads. Events preceding consent are never serialised for UGS.</li>
+  <li><strong>Deletion:</strong> first set the UGS choice to denied, stop/purge, then call the dedicated process. Persist a minimal pending request and information needed to resume it without reactivating collection. Distinguish local pending status, provider acceptance and actual erasure: a receipt alone does not prove erasure. Resuming must not recreate telemetry. New consent stays suspended until the request has been accepted according to the process documented by #33.</li>
+</ul>
+<p>The game save is not an Analytics queue and is not used to reconstruct history. UGS deletion does not reset local progress or UMP choices, and does not claim to delete Aptabase or Google data.</p>
+<h2>4. Minimal Aptabase projection</h2>
+<p>#33 owns the dictionary and projections. Only five minimal families are allowed: session, UGS choice actually offered, tutorial milestone, round summary and terminal ad result. Scores, durations and levels use defined ranges; no per-tap or intermediate-transition telemetry.</p>
+<p>Reject every unauthorised field by default: player/UGS installation identifier, shared UUID, product session, round, reward or transaction, age, category/protection, advertising choice, free text, exact score/balance/revenue. An ad-placement key from a closed catalogue describes a placement, not a person or transaction; it is an allowed dimension even if its technical name ends in <code>_id</code>.</p>
+<p>SDK system properties (including its technical session) and the server’s daily identity must be inventoried. Do not treat them as product identity or extend their lifetime. Aptabase continues after UGS consent, without a common linking identifier. Failure or retry of one provider does not cause duplicate delivery to the other.</p>
+<h2>5. Advertising: permission and availability</h2>
+<p>Request permission requires all of: a resolved age flow, protection flags already applied and current UMP request authorisation (<code>CanRequestAds</code>). A closed form, UGS consent or merely “handled” UMP state is insufficient. Display additionally requires an ad confirmed as ready and an eligible placement.</p>
+<p>An unresolved flow blocks AdMob initialisation and loading. A protected profile or <em>resolved</em> unknown technical fallback may receive Families ads: non-personalised, no remarketing, maximum content rating G and appropriate child settings applied before initialisation. #34 verifies the exact mapping, admitted Families SDKs and absence of high-engagement formats/ad pods. Only direct rewarded and interstitial ads are planned, with no mediation.</p>
+<p>If UMP disallows requests, fails or remains unresolved, keep ads unavailable and continue for free. Refusing personalisation may allow limited requests when UMP permits them; it guarantees neither an ad nor a reward. Aptabase and the UGS choice never change this decision.</p>
+<h2>6. Age correction and choice changes</h2>
+<ol>
+  <li>Block new operations relying on old states and invalidate ads loaded under the previous configuration.</li>
+  <li>Persist the new minimum states and recalculate protection. If age becomes protected/unknown, stop UGS, purge its queue and invalidate old consent.</li>
+  <li>Reconfigure advertising flags and reassess UMP before any new loading. Discard late load results from the previous configuration.</li>
+  <li>Moving to <code>general</code> does not reactivate old consent: a new explicit choice is required. A UMP change does not modify UGS intent, or vice versa.</li>
+</ol>
+<p>The reward coordinator retains responsibility for an already confirmed benefit; reconfiguration neither erases it nor grants it twice. The orchestrator must make changes effective before any new authorised delivery.</p>
+<h2>7. Settings and offline behaviour</h2>
+<ul>
+  <li>Age-category correction through the same neutral screen.</li>
+  <li>“Detailed UGS Analytics”: explicit choice/stop, unavailable when protection requires it; explain that minimal Aptabase remains independent.</li>
+  <li>“Delete UGS Analytics data”: separate action, appropriate confirmation and actual request status.</li>
+  <li>“Advertising choices”: open UMP options when its state requires them; do not show a fake consent control when unavailable.</li>
+  <li>HTTPS privacy, terms and support links in French/English.</li>
+</ul>
+<p>Offline refusal remains effective locally. Pending deletion must survive restart; no error reactivates UGS. Queues allowed after consent stay bounded as defined by #33 and are purged on withdrawal. Aptabase is never a reserve to replay into UGS.</p>
+<p>Failed external links show a localised message and a retry option. Unavailable links, Analytics or advertising never block play; no looping forms.</p>
+<h2>8. Responsibilities</h2>
+<ul>
+  <li><strong>#61 — public foundation:</strong> stable URLs, FR/EN versions, invariants and finalisation register.</li>
+  <li><strong>#33 — telemetry:</strong> single product interface, schemas/projections, routing, Aptabase/UGS adapters, stop/purge/deletion and device evidence. No SDK in gameplay.</li>
+  <li><strong>#34 — advertising:</strong> AdMob adapter, Families treatment, UMP primitives/forms, availability and callbacks. No UGS choice or economy mutation by the SDK.</li>
+  <li><strong>#58 — orchestration and compliance:</strong> age, persistence, localised flow/settings, invoking #33/#34 primitives, final documents and disclosures for the shipped build.</li>
+  <li><strong>#62 — external preparation:</strong> AdMob/UMP consoles using these URLs and contracts; <strong>#36 — final qualification:</strong> repeat evidence on the release candidate.</li>
+</ul>
+<p>Numbers identify project tracking without reproducing private code or identifiers. Adapters can be tested with QA profiles following these contracts before final UX delivery; technical completion is not permission to distribute.</p>
+<h2 id="finalization">9. Finalisation register — owned by #58</h2>
+<p>All items below are <strong>open</strong>. #58 must retain evidence and update FR/EN pages together before any distribution beyond the internal track; #36 repeats it on the release candidate. Integrations can consume the invariants above immediately.</p>
+<ol>
+  <li><strong>Identity and contact:</strong> publish legal name, address and working private contact; check delivery and rights procedures, including children’s representatives.</li>
+  <li><strong>Age:</strong> approve thresholds/territories and category version; prove absence of exact age from saves, logs and transmissions, plus protective fallback and correction.</li>
+  <li><strong>SDKs and inventories:</strong> freeze #33/#34 versions and configurations, verify payloads and automatic metadata of all four services, recipients, purposes and absence of a shared Aptabase/UGS identifier.</li>
+  <li><strong>Aptabase without consent:</strong> justify the legal basis and any exemption, including for children, with event scope and IP/User-Agent processing. The provider states up to five years’ retention: approve an appropriate period and options to shorten it. If the model is not validated, block its distribution and revise #33/#61 instead of silently adding consent.</li>
+  <li><strong>Retention and transfers:</strong> document periods per data type, queues and backups, contracting entities, subprocessors, Aptabase’s EU region and possible transfers/safeguards of other services.</li>
+  <li><strong>Choices and deletion:</strong> device evidence for initial/late consent, refusal, withdrawal, age correction and UGS deletion, including offline/restart; define provider confirmation, time limits, Aptabase limitations and separate Google requests.</li>
+  <li><strong>Advertising:</strong> verify published UMP form, silent refresh, permitted requests, privacy options, Families and G content on the real configuration; no personalisation for protected profiles.</li>
+  <li><strong>Local data and support:</strong> verify actual Android clearing/uninstall/restore effects and define data/retention for the future support channel.</li>
+  <li><strong>Documents and store:</strong> finalise terms (law, territories, rating, possible purchases), policy and effective dates; reconcile the build with Data safety, audience/Families, advertising and Play Console contacts.</li>
+  <li><strong>Release evidence:</strong> archive page versions, store answers, configurations and flow results; repeat checks after relevant SDK or consent changes.</li>
+</ol>
+  </main>
+  <footer>
+    © 2026 Meeple Factory · <a href="/meeple-factory-legal/en/privacy/">Privacy</a> · <a href="/meeple-factory-legal/en/support/">Support</a> · <a href="/meeple-factory-legal/en/#history">Version history</a>
+  </footer>
+</body>
+</html>

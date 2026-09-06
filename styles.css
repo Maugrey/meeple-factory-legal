@@ -15,4 +15,20 @@ h2 { margin-top:30px; line-height:1.25; }
 .meta { color:var(--muted); font-size:.93rem; }
 footer { color:var(--muted); font-size:.9rem; padding-bottom:28px; }
 a { color:#155c92; }
+main, footer { overflow-wrap:anywhere; }
+li + li { margin-top:10px; }
+ul, ol { padding-left:24px; }
+code { font-size:.9em; background:#edf1eb; padding:2px 4px; border-radius:3px; }
+.table-scroll { overflow-x:auto; margin-block:20px; }
+table { width:100%; min-width:680px; border-collapse:collapse; font-size:.95rem; }
+caption { text-align:left; font-weight:650; padding-bottom:12px; }
+th, td { border:1px solid var(--line); padding:12px; text-align:left; vertical-align:top; }
+thead { background:#edf1eb; }
+tbody th { font-weight:650; min-width:145px; width:24%; }
+th code { white-space:nowrap; }
+.table-hint { display:none; }
+:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
+.skip-link { position:absolute; left:16px; top:-100px; padding:10px 14px; background:var(--paper); z-index:1; }
+.skip-link:focus { top:8px; }
 @media (max-width:600px) { main { border-radius:0; } header, main, footer { padding-inline:18px; } }
+@media (max-width:720px) { .table-hint { display:block; color:var(--muted); font-size:.93rem; } }
