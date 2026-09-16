@@ -1,1 +1,129 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contrats d’intégration — Meeple Factory</title><link rel="stylesheet" href="/meeple-factory-legal/styles.css"></head><body><header><a class="brand" href="/meeple-factory-legal/">Meeple Factory</a><a class="language" href="/meeple-factory-legal/en/contracts/" lang="en">English</a></header><main><h1>Contrats d’intégration confidentialité</h1><p class="meta">Version préparatoire v0.1 — 6 septembre 2026</p><p class="notice">Contrat d’orchestration pour les intégrations : ce document ne fixe pas une API fournisseur et devra être confirmé après gel des SDK.</p><nav aria-label="Navigation légale"><a href="/meeple-factory-legal/">Accueil</a><a href="/meeple-factory-legal/privacy/">Confidentialité</a><a href="/meeple-factory-legal/terms/">Conditions d’utilisation</a><a href="/meeple-factory-legal/support/">Support</a><span aria-current="page">Contrats d’intégration</span></nav><h2>État d’âge</h2><p>Seule une catégorie minimale persistée est autorisée. La date de naissance et l’âge exact ne sont jamais conservés. Tant que l’âge est inconnu, le profil est traité comme protégé.</p><h2>Ordre et indépendance</h2><p>Premier lancement : 1) âge ; 2) choix UGS Analytics ; 3) UMP seulement si requis. L’état d’âge, le choix UGS, l’état UMP et Aptabase minimal sont indépendants : aucun ne déduit ni ne remplace un autre.</p><h2>Reconfiguration et réglages</h2><p>Une correction d’âge ou une modification de consentement réévalue et reconfigure les adaptateurs affectés. Les réglages exposent âge, UGS, UMP, suppression et liens légaux. Les adaptateurs ne présentent pas d’interface propre au gameplay.</p><h2>Publicité et hors ligne</h2><p>La publicité reste indisponible tant que l’âge n’est pas résolu et, le cas échéant, tant qu’UMP n’est pas résolu. Hors ligne, les opérations externes peuvent être différées ou indisponibles ; la posture protectrice demeure.</p><h2>Responsabilités</h2><p>Les adaptateurs UGS/UMP appliquent leur état et signalent leur disponibilité ; Aptabase reste minimal et séparé. L’orchestrateur coordonne l’ordre, persiste les choix autorisés, déclenche les reconfigurations et fournit l’état aux réglages. La conformité finale, inventaires, durées et déclarations store restent à confirmer après gel des SDK.</p></main><footer>© 2026 Meeple Factory</footer></body></html>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Contrats d’intégration de confidentialité de Meeple Factory — version préparatoire française pour Android / Google Play.">
+  <meta name="referrer" content="no-referrer">
+  <title>Contrats d’intégration de confidentialité — Meeple Factory</title>
+  <link rel="stylesheet" href="/meeple-factory-legal/styles.css">
+  <link rel="icon" href="data:,">
+  <link rel="canonical" href="https://maugrey.github.io/meeple-factory-legal/contracts/">
+  <link rel="alternate" hreflang="en" href="https://maugrey.github.io/meeple-factory-legal/en/contracts/">
+</head>
+<body>
+  <a class="skip-link" href="#content">Aller au contenu</a>
+  <header>
+    <a class="brand" href="/meeple-factory-legal/">Meeple Factory</a>
+    <a class="language" href="/meeple-factory-legal/en/contracts/" lang="en" hreflang="en">English</a>
+  </header>
+  <main id="content">
+    <h1>Contrats d’intégration de confidentialité</h1>
+    <p class="meta">Version préparatoire v0.2 — publication : <time datetime="2026-09-07">7 septembre 2026</time><br>Entrée en vigueur des textes définitifs : à confirmer avant diffusion.</p>
+    <p class="notice">Version préparatoire pour la v1.0. Les comportements du jeu sont prévus et restent à vérifier sur la version distribuée. Les éléments « à confirmer » doivent être finalisés avant diffusion au-delà des tests internes.</p>
+    <nav aria-label="Navigation légale">
+      <a href="/meeple-factory-legal/">Accueil</a>
+      <a href="/meeple-factory-legal/privacy/">Confidentialité</a>
+      <a href="/meeple-factory-legal/terms/">Conditions d’utilisation</a>
+      <a href="/meeple-factory-legal/support/">Support</a>
+      <a href="/meeple-factory-legal/contracts/" aria-current="page">Contrats d’intégration</a>
+    </nav>
+<p>Cette page s’adresse aux personnes qui intègrent et vérifient les services du jeu. Les invariants ci-dessous constituent le socle v0.2 utilisable avant livraison des SDK. Les éléments signalés dans le registre final restent à vérifier avant diffusion ; ils ne rendent pas les invariants facultatifs. Les noms d’états décrivent un contrat de données, pas une API fournisseur à appeler depuis le gameplay.</p>
+<h2>1. Catégorie minimale et résolution de l’âge</h2>
+<p>Persister une catégorie versionnée <code>protected</code>, <code>general</code> ou <code>unknown</code>, séparément de l’état d’achèvement du parcours d’âge. Aucun âge exact, date de naissance ou historique de saisie n’est conservé, journalisé ou envoyé. Toute lecture invalide ou version inconnue revient à <code>unknown</code> avec parcours non résolu avant tout service dépendant de l’âge.</p>
+<p class="table-hint">Sur petit écran, faites défiler le tableau horizontalement.</p>
+<div class="table-scroll" role="region" aria-label="Catégories et parcours d’âge" tabindex="0"><table>
+<caption>Catégorie et résolution sont deux informations différentes</caption>
+<thead><tr><th scope="col">État</th><th scope="col">Signification</th><th scope="col">Traitement</th></tr></thead>
+<tbody>
+<tr><th scope="row">Parcours non résolu</th><td>Première ouverture, interruption ou état illisible.</td><td>Écran d’âge obligatoire ; UGS et initialisation/chargement AdMob bloqués. Protection par défaut.</td></tr>
+<tr><th scope="row"><code>protected</code>, parcours résolu</th><td>Enfant ou personne sous le seuil de consentement applicable.</td><td>Aucun UGS ; publicité Families seulement si UMP autorise les requêtes.</td></tr>
+<tr><th scope="row"><code>general</code>, parcours résolu</th><td>Profil déterminé comme autorisé à choisir UGS.</td><td>UGS dépend d’un accord distinct ; AdMob dépend d’UMP.</td></tr>
+<tr><th scope="row"><code>unknown</code>, parcours résolu</th><td>Repli technique explicitement traité par l’orchestrateur après le parcours, sans certitude suffisante sur la catégorie.</td><td>Traitement protégé ; publicité Families possible après autorisation UMP. Ne permet jamais de contourner l’écran d’âge.</td></tr>
+</tbody></table></div>
+<p>L’écran est neutre, sans réponse présélectionnée, incitation à répondre adulte, bouton de saut ni « je préfère ne pas répondre ». Un écran interrompu revient au prochain lancement. Un état absent ou corrompu ne vaut jamais parcours achevé.</p>
+<p>Les seuils numériques et règles territoriales sont une configuration versionnée à finaliser dans #58, distincte de la classification du store. Une règle inconnue ne peut pas produire <code>general</code>. La catégorie n’est jamais envoyée à Aptabase ou UGS, utilisée pour segmenter les mesures ou modifier la difficulté. Aucun recours à Google Play Age Signals n’est prévu en v1.0.</p>
+<h2>2. Ordre du premier lancement</h2>
+<ol>
+  <li>Charger les états avec protection et intention UGS refusée par défaut. Aptabase minimal peut mesurer le lancement, sans attendre UGS, sous réserve de la validation de diffusion du registre ci-dessous.</li>
+  <li>Résoudre le parcours d’âge avant toute initialisation dépendante de l’âge.</li>
+  <li>Pour <code>general</code> seulement, proposer une fois le choix UGS, avec refus aussi accessible que l’accord. Pour les profils protégés/inconnus, aucune sollicitation UGS.</li>
+  <li>Mettre à jour UMP avec le traitement adapté ; afficher son formulaire seulement si requis, puis lire son autorisation de requêtes.</li>
+  <li>Accéder au jeu. Une panne réseau ou fournisseur ne bloque pas le parcours gratuit.</li>
+</ol>
+<p>Les décisions sont séparées : âge, intention UGS et état UMP. Aptabase minimal ne constitue pas un quatrième consentement et ne dépend pas des choix UGS ou UMP. La politique informe ; ni sa consultation, ni les CGU, ni un bouton global ne valent accord.</p>
+<p>Aux lancements suivants, UMP actualise silencieusement son état. Un refus ou un choix limité est résolu : aucune sollicitation ordinaire répétée. Un formulaire revient uniquement sur demande depuis les réglages ou si le fournisseur exige une nouvelle décision/expiration. Un choix UGS interrompu reste inconnu, sans collecte ; seule l’étape inachevée reste à résoudre.</p>
+<h2>3. Matrice Analytics</h2>
+<p class="table-hint">Sur petit écran, faites défiler le tableau horizontalement.</p>
+<div class="table-scroll" role="region" aria-label="Routage Analytics" tabindex="0"><table>
+<caption>État effectif calculé à partir de l’âge et du choix UGS</caption>
+<thead><tr><th scope="col">État UGS effectif</th><th scope="col">Aptabase minimal</th><th scope="col">UGS et file d’envoi</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>unknown</code></th><td>Autorisé</td><td>Aucun événement ni payload en attente.</td></tr>
+<tr><th scope="row"><code>protected</code></th><td>Autorisé</td><td>Aucun événement ni payload en attente.</td></tr>
+<tr><th scope="row"><code>denied</code></th><td>Autorisé</td><td>Aucun événement ; file non envoyée purgée.</td></tr>
+<tr><th scope="row"><code>granted</code></th><td>Autorisé</td><td>Événements futurs uniquement, profil <code>general</code> résolu.</td></tr>
+</tbody></table></div>
+<p>« Autorisé » ne garantit ni réseau ni disponibilité du service. Le routage UGS est refusé par défaut, y compris dans la configuration fournisseur. Un ancien accord ne surpasse jamais la protection d’âge.</p>
+<ul>
+  <li><strong>Accord initial :</strong> activer UGS immédiatement puis émettre le début de session et les événements futurs du premier parcours.</li>
+  <li><strong>Accord tardif :</strong> commencer à cet instant avec l’événement de début de collecte et l’état courant autorisé, session marquée partielle ; aucun replay de sessions, tutoriels, manches ou publicités passés.</li>
+  <li><strong>Retrait/refus :</strong> arrêter immédiatement UGS et purger les payloads non envoyés. Les événements antérieurs à un accord ne sont jamais sérialisés pour UGS.</li>
+  <li><strong>Suppression :</strong> passer d’abord le choix UGS à refusé, arrêter/purger, puis appeler la procédure dédiée. Persister une demande minimale en attente et l’information nécessaire à sa reprise sans réactiver la collecte. Distinguer attente locale, prise en charge par le fournisseur et effacement effectif : un accusé de réception ne prouve pas à lui seul l’effacement. Une reprise ne doit pas recréer de télémétrie. Un nouvel accord reste suspendu tant que la demande n’a pas été prise en charge selon le protocole documenté par #33.</li>
+</ul>
+<p>La sauvegarde du jeu n’est pas une file Analytics et ne sert pas à reconstruire l’historique. La suppression UGS ne réinitialise pas la progression locale ni les choix UMP, et ne prétend pas supprimer Aptabase ou Google.</p>
+<h2>4. Projection minimale Aptabase</h2>
+<p>#33 possède le dictionnaire et les projections. Seules cinq familles minimales sont autorisées : session, choix UGS réellement proposé, étape de tutoriel, résumé de manche et résultat publicitaire terminal. Les scores, durées et niveaux utilisent les tranches définies ; aucune télémétrie par tap ou transition intermédiaire.</p>
+<p>Refuser par défaut tout champ non autorisé : identifiant de joueur/installation UGS, UUID partagé, session métier, manche, récompense ou transaction, âge, catégorie/protection, choix publicitaire, texte libre, score/solde/revenu exact. Une clé de placement publicitaire issue d’un catalogue fermé décrit un emplacement, pas une personne ni une transaction ; elle constitue une dimension autorisée, même si son nom technique se termine par <code>_id</code>.</p>
+<p>Les propriétés système du SDK (dont sa session technique) et l’identité quotidienne calculée côté serveur doivent figurer dans l’inventaire. Ne pas les confondre avec une identité produit ni étendre leur durée. Aptabase continue après accord UGS, sans identifiant commun de rapprochement. Une panne ou reprise d’un fournisseur n’entraîne pas un double envoi à l’autre.</p>
+<h2>5. Publicité : autorisation et disponibilité</h2>
+<p>Autoriser les requêtes exige simultanément un parcours d’âge résolu, les indicateurs de protection déjà appliqués et l’autorisation courante d’UMP (<code>CanRequestAds</code>). Un formulaire simplement fermé, un accord UGS ou un état UMP seulement « traité » ne suffisent pas. L’affichage exige ensuite une publicité réellement prête et l’éligibilité du placement.</p>
+<p>Un parcours non résolu bloque l’initialisation et le chargement AdMob. Un profil protégé ou un repli technique inconnu <em>résolu</em> peut recevoir des publicités Families : non personnalisées, sans remarketing, contenu maximal G et paramètres enfants appropriés appliqués avant initialisation. #34 vérifie le mapping exact, les SDK Families admis et l’absence de formats high-engagement/ad pods. Seuls rewarded et interstitial directs sont prévus, sans médiation.</p>
+<p>Si UMP n’autorise pas les requêtes, échoue ou reste non résolu, conserver les publicités indisponibles et poursuivre gratuitement. Le refus de personnalisation peut permettre des requêtes limitées si UMP l’autorise ; il ne garantit ni publicité ni récompense. Aptabase et le choix UGS ne changent jamais cette décision.</p>
+<h2>6. Correction d’âge et changements de choix</h2>
+<ol>
+  <li>Bloquer les nouveaux départs dépendant des anciens états et invalider les publicités chargées sous la configuration précédente.</li>
+  <li>Persister les nouveaux états minimaux et recalculer la protection. Si l’âge devient protégé/inconnu, arrêter UGS, purger sa file et invalider l’ancien accord.</li>
+  <li>Reconfigurer les indicateurs publicitaires et réévaluer UMP avant tout nouveau chargement. Écarter les résultats de chargement tardifs issus de l’ancienne configuration.</li>
+  <li>Un passage vers <code>general</code> ne réactive pas un accord antérieur : un nouvel accord explicite est nécessaire. Un changement UMP ne modifie pas l’intention UGS, et inversement.</li>
+</ol>
+<p>Le coordinateur de récompenses conserve la responsabilité d’un bénéfice déjà confirmé ; une reconfiguration ne l’efface ni ne l’attribue une seconde fois. L’orchestrateur doit rendre les changements effectifs avant tout nouvel envoi autorisé.</p>
+<h2>7. Réglages et hors ligne</h2>
+<ul>
+  <li>Correction de catégorie d’âge, avec le même écran neutre.</li>
+  <li>« UGS Analytics détaillé » : choix/arrêt explicite, protégé donc indisponible lorsque nécessaire ; expliquer qu’Aptabase minimal reste indépendant.</li>
+  <li>« Supprimer les données UGS Analytics » : action séparée, confirmation adaptée et statut réel de la demande.</li>
+  <li>« Choix publicitaires » : ouvrir les options UMP lorsque son état l’exige ; ne pas afficher un contrôle de consentement factice si indisponible.</li>
+  <li>Liens HTTPS confidentialité, CGU et support en français/anglais.</li>
+</ul>
+<p>Sans réseau, un choix de refus reste effectif localement. Une suppression en attente doit survivre au redémarrage ; aucune erreur ne réactive UGS. Les files autorisées après accord restent bornées selon #33 et sont purgées au retrait. Aptabase ne constitue jamais une réserve à rejouer dans UGS.</p>
+<p>Les liens externes échoués affichent un message localisé et une possibilité de réessayer. Ni lien, ni Analytics, ni publicité indisponible ne bloque le jeu ; aucun formulaire ne tourne en boucle.</p>
+<h2>8. Responsabilités</h2>
+<ul>
+  <li><strong>#61 — socle public :</strong> URL stables, versions FR/EN, invariants et registre de finalisation.</li>
+  <li><strong>#33 — télémétrie :</strong> façade produit unique, schémas/projections, routage, adaptateurs Aptabase/UGS, arrêt/purge/suppression et preuves sur appareils. Aucun SDK dans le gameplay.</li>
+  <li><strong>#34 — publicité :</strong> adaptateur AdMob, traitement Families, primitives/formulaires UMP, disponibilité et callbacks. Aucun choix UGS ni mutation économique par le SDK.</li>
+  <li><strong>#58 — orchestration et conformité :</strong> âge, persistance, parcours et réglages localisés, déclenchement des primitives #33/#34, textes et déclarations finaux sur la version distribuée.</li>
+  <li><strong>#62 — préparation externe :</strong> consoles AdMob/UMP utilisant ces URL et contrats ; <strong>#36 — qualification finale :</strong> reprise des preuves sur la release candidate.</li>
+</ul>
+<p>Les numéros identifient le suivi du projet, sans reproduire le code ni les identifiants privés. Les adaptateurs peuvent être testés avec des profils QA conformes à ces contrats avant la livraison de l’UX finale ; leur clôture technique ne vaut pas autorisation de diffusion.</p>
+<h2 id="finalization">9. Registre de finalisation — responsabilité #58</h2>
+<p>Tous les points ci-dessous sont <strong>ouverts</strong>. #58 doit conserver les preuves puis actualiser ensemble les pages FR/EN avant toute diffusion hors piste interne ; #36 les rejoue sur la release candidate. Les invariants ci-dessus sont consommables immédiatement par les intégrations.</p>
+<ol>
+  <li><strong>Identité et contact :</strong> publier nom légal, adresse et contact privé fonctionnel ; vérifier la réception et les modalités de droits, y compris pour les représentants d’enfants.</li>
+  <li><strong>Âge :</strong> approuver les seuils/territoires et la version de catégorie ; prouver l’absence d’âge exact dans les sauvegardes, logs et envois, ainsi que le repli protecteur et la correction.</li>
+  <li><strong>SDK et inventaires :</strong> figer les versions et configurations #33/#34, vérifier les payloads et métadonnées automatiques des quatre services, les destinataires, finalités et absence d’identifiant commun Aptabase/UGS.</li>
+  <li><strong>Aptabase sans consentement :</strong> justifier la base juridique et l’éventuelle exemption, y compris pour les enfants, avec portée des événements et traitement IP/User-Agent. Le fournisseur annonce jusqu’à cinq ans de conservation : approuver une durée adaptée et les possibilités de réduction. Si le modèle n’est pas validé, bloquer sa diffusion et réviser #33/#61 au lieu d’ajouter silencieusement un consentement.</li>
+  <li><strong>Conservations et transferts :</strong> documenter durées par donnée, files et sauvegardes, entités contractantes, sous-traitants, région UE Aptabase et éventuels transferts/garanties des autres services.</li>
+  <li><strong>Choix et suppression :</strong> preuves sur appareil de l’accord initial/tardif, refus, retrait, correction d’âge et suppression UGS, y compris hors ligne/redémarrage ; définir confirmation fournisseur, délais, limites Aptabase et demandes Google distinctes.</li>
+  <li><strong>Publicité :</strong> vérifier formulaire UMP publié, mise à jour silencieuse, requêtes permises, options de confidentialité, Families et contenu G sur la configuration réelle ; aucune personnalisation pour les profils protégés.</li>
+  <li><strong>Données locales et support :</strong> vérifier les effets réels d’effacement/désinstallation/restauration Android et définir les données/durées du futur canal de support.</li>
+  <li><strong>Textes et store :</strong> finaliser CGU (droit, territoires, classification, éventuels achats), politique et dates d’entrée en vigueur ; rapprocher la build de Data safety, audience/Families, publicités et contacts Play Console.</li>
+  <li><strong>Preuves de release :</strong> archiver versions des pages, réponses store, configurations et résultats des parcours ; refaire les contrôles après toute modification pertinente de SDK ou consentement.</li>
+</ol>
+  </main>
+  <footer>
+    © 2026 Meeple Factory · <a href="/meeple-factory-legal/privacy/">Confidentialité</a> · <a href="/meeple-factory-legal/support/">Support</a> · <a href="/meeple-factory-legal/#history">Historique des versions</a>
+  </footer>
+</body>
+</html>
