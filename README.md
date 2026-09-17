@@ -33,7 +33,7 @@ pas « aucune donnée traitée par l’hébergeur ».
   appartient à **#58** : chaque entrée reste ouverte jusqu’à preuve et mise à jour
   des deux langues. #36 répète les contrôles sur la release candidate.
 - Le studio public est **Counting Twice** et le contact privé est
-  `coutingtwice@maugrey.net`. Ne pas inventer de coordonnées supplémentaires ni
+  `countingtwice@maugrey.net`. Ne pas inventer de coordonnées supplémentaires ni
   orienter les demandes individuelles vers des issues publiques. Les informations
   d’identification requises sont communiquées directement aux prestataires ou
   autorités compétentes ; l’adresse personnelle n’est pas publiée dans ce dépôt.
