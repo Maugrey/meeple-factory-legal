@@ -32,9 +32,11 @@ pas « aucune donnée traitée par l’hébergeur ».
 - Le [registre de finalisation](https://maugrey.github.io/meeple-factory-legal/contracts/#finalization)
   appartient à **#58** : chaque entrée reste ouverte jusqu’à preuve et mise à jour
   des deux langues. #36 répète les contrôles sur la release candidate.
-- L’identité légale et le contact privé de l’éditeur restent à fournir. Ne pas
-  inventer de coordonnées ni orienter les demandes individuelles vers des issues
-  publiques. Ce manque doit être levé avant diffusion hors piste interne.
+- Le studio public est **Counting Twice** et le contact privé est
+  `coutingtwice@maugrey.net`. Ne pas inventer de coordonnées supplémentaires ni
+  orienter les demandes individuelles vers des issues publiques. Les informations
+  d’identification requises sont communiquées directement aux prestataires ou
+  autorités compétentes ; l’adresse personnelle n’est pas publiée dans ce dépôt.
 - Les dates affichées sont les dates de publication préparatoire. L’entrée en
   vigueur des documents définitifs reste à confirmer. Ce socle ne clôt pas #58
   et ne remplace pas une validation juridique.
