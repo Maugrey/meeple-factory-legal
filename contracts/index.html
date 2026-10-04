@@ -19,8 +19,8 @@
   </header>
   <main id="content">
     <h1>Contrats d’intégration de confidentialité</h1>
-    <p class="meta">Version préparatoire v0.2 — publication : <time datetime="2026-09-07">7 septembre 2026</time><br>Entrée en vigueur des textes définitifs : à confirmer avant diffusion.</p>
-    <p class="notice">Version préparatoire pour la v1.0. Les comportements du jeu sont prévus et restent à vérifier sur la version distribuée. Les éléments « à confirmer » doivent être finalisés avant diffusion au-delà des tests internes.</p>
+    <p class="meta">Révision 1.1 — publication et entrée en vigueur pour le parcours décrit : <time datetime="2026-10-04">4 octobre 2026</time>.</p>
+    <p class="notice">Cette révision décrit le parcours de confidentialité implémenté. La qualification du jeu Android et la vérification des configurations fournisseurs restent nécessaires avant diffusion au-delà des tests internes.</p>
     <nav aria-label="Navigation légale">
       <a href="/meeple-factory-legal/">Accueil</a>
       <a href="/meeple-factory-legal/privacy/">Confidentialité</a>
@@ -28,9 +28,9 @@
       <a href="/meeple-factory-legal/support/">Support</a>
       <a href="/meeple-factory-legal/contracts/" aria-current="page">Contrats d’intégration</a>
     </nav>
-<p>Cette page s’adresse aux personnes qui intègrent et vérifient les services du jeu. Les invariants ci-dessous constituent le socle v0.2 utilisable avant livraison des SDK. Les éléments signalés dans le registre final restent à vérifier avant diffusion ; ils ne rendent pas les invariants facultatifs. Les noms d’états décrivent un contrat de données, pas une API fournisseur à appeler depuis le gameplay.</p>
+<p>Cette page s’adresse aux personnes qui intègrent et vérifient les services du jeu. Les invariants ci-dessous constituent le socle de confidentialité révisé 1.1. Les éléments signalés dans le registre final restent à vérifier avant diffusion ; ils ne rendent pas les invariants facultatifs. Les noms d’états décrivent un contrat de données, pas une API fournisseur à appeler depuis le gameplay.</p>
 <h2>1. Catégorie minimale et résolution de l’âge</h2>
-<p>Persister une catégorie versionnée <code>protected</code>, <code>general</code> ou <code>unknown</code>, séparément de l’état d’achèvement du parcours d’âge. Aucun âge exact, date de naissance ou historique de saisie n’est conservé, journalisé ou envoyé. Toute lecture invalide ou version inconnue revient à <code>unknown</code> avec parcours non résolu avant tout service dépendant de l’âge.</p>
+<p>Persister le format versionné de confidentialité, la tranche déclarée (moins de X ans, X–17 ans, 18–25 ans, 26–40 ans ou 41 ans et plus), le seuil X utilisé et la catégorie dérivée <code>protected</code>, <code>general</code> ou <code>unknown</code>, séparément de l’achèvement du parcours. Aucune date de naissance ni aucun âge exact n’est demandé, conservé, journalisé ou envoyé. Un format ancien, inconnu ou invalide impose un nouveau choix de tranche et d’Analytics, avec protection par défaut. La progression et les demandes de suppression sont conservées.</p>
 <p class="table-hint">Sur petit écran, faites défiler le tableau horizontalement.</p>
 <div class="table-scroll" role="region" aria-label="Catégories et parcours d’âge" tabindex="0"><table>
 <caption>Catégorie et résolution sont deux informations différentes</caption>
@@ -42,7 +42,7 @@
 <tr><th scope="row"><code>unknown</code>, parcours résolu</th><td>Repli technique explicitement traité par l’orchestrateur après le parcours, sans certitude suffisante sur la catégorie.</td><td>Traitement protégé ; publicité Families possible après autorisation UMP. Ne permet jamais de contourner l’écran d’âge.</td></tr>
 </tbody></table></div>
 <p>L’écran est neutre, sans réponse présélectionnée, incitation à répondre adulte, bouton de saut ni « je préfère ne pas répondre ». Un écran interrompu revient au prochain lancement. Un état absent ou corrompu ne vaut jamais parcours achevé.</p>
-<p>Les seuils numériques et règles territoriales sont une configuration versionnée à finaliser dans #58, distincte de la classification du store. Une règle inconnue ne peut pas produire <code>general</code>. La catégorie n’est jamais envoyée à Aptabase ou UGS, utilisée pour segmenter les mesures ou modifier la difficulté. Aucun recours à Google Play Age Signals n’est prévu en v1.0.</p>
+<p>Les seuils et règles territoriales sont configurés indépendamment de la classification du store. Le signal pays réseau/SIM choisit X : 15 ans pour la France, règle configurée ailleurs, repli protecteur à 16 ans en cas d’absence, conflit ou signal non reconnu. Le seuil affiché reste celui du choix enregistré ; aucun pays n’est sauvegardé. La catégorie dérivée reste locale. La tranche déclarée est transmise uniquement à UGS après accord, pour comparer les groupes consentants ; Aptabase ne reçoit aucune tranche. La difficulté ne dépend pas de l’âge. Aucun recours à Google Play Age Signals n’est prévu.</p>
 <h2>2. Ordre du premier lancement</h2>
 <ol>
   <li>Charger les états avec protection et intention UGS refusée par défaut. Aptabase minimal peut mesurer le lancement, sans attendre UGS, sous réserve de la validation de diffusion du registre ci-dessous.</li>
@@ -72,14 +72,16 @@
   <li><strong>Suppression :</strong> passer d’abord le choix UGS à refusé, arrêter/purger, puis appeler la procédure dédiée. Persister une demande minimale en attente et l’information nécessaire à sa reprise sans réactiver la collecte. Distinguer attente locale, prise en charge par le fournisseur et effacement effectif : un accusé de réception ne prouve pas à lui seul l’effacement. Une reprise ne doit pas recréer de télémétrie. Un nouvel accord reste suspendu tant que la demande n’a pas été prise en charge selon le protocole documenté par #33.</li>
 </ul>
 <p>La sauvegarde du jeu n’est pas une file Analytics et ne sert pas à reconstruire l’historique. La suppression UGS ne réinitialise pas la progression locale ni les choix UMP, et ne prétend pas supprimer Aptabase ou Google.</p>
+<p>Les dix événements UGS existants portent le paramètre facultatif STRING <code>age_bracket</code> après accord : <code>session_started</code>, <code>ftue_milestone</code>, <code>round_started</code>, <code>round_outcome_shown</code>, <code>round_committed</code>, <code>challenge_result_recorded</code>, <code>economy_transaction</code>, <code>meta_progression_action</code>, <code>ad_flow</code> et <code>analytics_collection_started</code>. Valeurs : <code>13-17</code>, <code>14-17</code>, <code>15-17</code>, <code>16-17</code>, <code>18-25</code>, <code>26-40</code>, <code>41+</code>. Aucun historique pré-consentement n’est rejoué. La déclaration ne vérifie pas l’âge réel et ne représente pas tous les joueurs.</p>
 <h2>4. Projection minimale Aptabase</h2>
-<p>#33 possède le dictionnaire et les projections. Seules cinq familles minimales sont autorisées : session, choix UGS réellement proposé, étape de tutoriel, résumé de manche et résultat publicitaire terminal. Les scores, durées et niveaux utilisent les tranches définies ; aucune télémétrie par tap ou transition intermédiaire.</p>
+<p>Le dictionnaire et les projections autorisent six familles minimales : session, choix UGS réellement proposé, étape de tutoriel, résumé de manche, progression de défi (victoire et attribution de lot) et résultat publicitaire terminal. Les scores, durées et niveaux utilisent les tranches définies ; aucune télémétrie par tap ou transition intermédiaire.</p>
 <p>Refuser par défaut tout champ non autorisé : identifiant de joueur/installation UGS, UUID partagé, session métier, manche, récompense ou transaction, âge, catégorie/protection, choix publicitaire, texte libre, score/solde/revenu exact. Une clé de placement publicitaire issue d’un catalogue fermé décrit un emplacement, pas une personne ni une transaction ; elle constitue une dimension autorisée, même si son nom technique se termine par <code>_id</code>.</p>
 <p>Les propriétés système du SDK (dont sa session technique) et l’identité quotidienne calculée côté serveur doivent figurer dans l’inventaire. Ne pas les confondre avec une identité produit ni étendre leur durée. Aptabase continue après accord UGS, sans identifiant commun de rapprochement. Une panne ou reprise d’un fournisseur n’entraîne pas un double envoi à l’autre.</p>
 <h2>5. Publicité : autorisation et disponibilité</h2>
 <p>Autoriser les requêtes exige simultanément un parcours d’âge résolu, les indicateurs de protection déjà appliqués et l’autorisation courante d’UMP (<code>CanRequestAds</code>). Un formulaire simplement fermé, un accord UGS ou un état UMP seulement « traité » ne suffisent pas. L’affichage exige ensuite une publicité réellement prête et l’éligibilité du placement.</p>
 <p>Un parcours non résolu bloque l’initialisation et le chargement AdMob. Un profil protégé ou un repli technique inconnu <em>résolu</em> peut recevoir des publicités Families : non personnalisées, sans remarketing, contenu maximal G et paramètres enfants appropriés appliqués avant initialisation. #34 vérifie le mapping exact, les SDK Families admis et l’absence de formats high-engagement/ad pods. Seuls rewarded et interstitial directs sont prévus, sans médiation.</p>
 <p>Si UMP n’autorise pas les requêtes, échoue ou reste non résolu, conserver les publicités indisponibles et poursuivre gratuitement. Le refus de personnalisation peut permettre des requêtes limitées si UMP l’autorise ; il ne garantit ni publicité ni récompense. Aptabase et le choix UGS ne changent jamais cette décision.</p>
+<p>Google reçoit le traitement enfant sous X, adolescent pour X–17 et standard à partir de 18 ans, sans tranche statistique adulte. Les mineurs reçoivent des requêtes sans personnalisation ; le traitement UMP sous l’âge du consentement s’applique sous X. Les indicateurs sont posés avant initialisation et chargement, et ne remplacent jamais l’autorisation actuelle d’UMP.</p>
 <h2>6. Correction d’âge et changements de choix</h2>
 <ol>
   <li>Bloquer les nouveaux départs dépendant des anciens états et invalider les publicités chargées sous la configuration précédente.</li>
@@ -90,7 +92,7 @@
 <p>Le coordinateur de récompenses conserve la responsabilité d’un bénéfice déjà confirmé ; une reconfiguration ne l’efface ni ne l’attribue une seconde fois. L’orchestrateur doit rendre les changements effectifs avant tout nouvel envoi autorisé.</p>
 <h2>7. Réglages et hors ligne</h2>
 <ul>
-  <li>Correction de catégorie d’âge, avec le même écran neutre.</li>
+  <li>Correction de tranche d’âge, avec le même écran neutre.</li>
   <li>« UGS Analytics détaillé » : choix/arrêt explicite, protégé donc indisponible lorsque nécessaire ; expliquer qu’Aptabase minimal reste indépendant.</li>
   <li>« Supprimer les données UGS Analytics » : action séparée, confirmation adaptée et statut réel de la demande.</li>
   <li>« Choix publicitaires » : ouvrir les options UMP lorsque son état l’exige ; ne pas afficher un contrôle de consentement factice si indisponible.</li>
