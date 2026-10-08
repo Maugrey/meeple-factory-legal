@@ -19,7 +19,7 @@
   </header>
   <main id="content">
     <h1>Privacy integration contracts</h1>
-    <p class="meta">Revision 1.1 — published and effective for the described flow: <time datetime="2026-10-04">4 October 2026</time>.</p>
+    <p class="meta">Revision 1.2 — published and effective for the described flow: <time datetime="2026-10-08">8 October 2026</time>.</p>
     <p class="notice">This revision describes the implemented privacy flow. Android release qualification and provider-configuration verification remain necessary before distribution beyond internal testing.</p>
     <nav aria-label="Legal navigation">
       <a href="/meeple-factory-legal/en/">Home</a>
@@ -28,7 +28,7 @@
       <a href="/meeple-factory-legal/en/support/">Support</a>
       <a href="/meeple-factory-legal/en/contracts/" aria-current="page">Integration contracts</a>
     </nav>
-<p>This page is for people integrating and verifying game services. The invariants below form the revised 1.1 privacy baseline. Items in the final register still need verification before distribution; they do not make the invariants optional. State names describe a data contract, not a provider API to call from gameplay.</p>
+<p>This page is for people integrating and verifying game services. The invariants below form the revised 1.2 privacy baseline. Items in the final register still need verification before distribution; they do not make the invariants optional. State names describe a data contract, not a provider API to call from gameplay.</p>
 <h2>1. Minimum category and age resolution</h2>
 <p>Persist the versioned privacy format, declared age group (under X, X–17, 18–25, 26–40 or 41 and over), threshold X used and derived <code>protected</code>, <code>general</code> or <code>unknown</code> category, separately from flow completion. No date of birth or exact age is requested, retained, logged or sent. A legacy, unknown or invalid format requires new age-group and Analytics choices with protection by default. Progression and deletion requests are preserved.</p>
 <p class="table-hint">On small screens, scroll the table horizontally.</p>
@@ -110,12 +110,12 @@
 </ul>
 <p>Numbers identify project tracking without reproducing private code or identifiers. Adapters can be tested with QA profiles following these contracts before final UX delivery; technical completion is not permission to distribute.</p>
 <h2 id="finalization">9. Finalisation register — owned by #58</h2>
-<p>All items below are <strong>open</strong>. #58 must retain evidence and update FR/EN pages together before any distribution beyond the internal track; #36 repeats it on the release candidate. Integrations can consume the invariants above immediately.</p>
+<p>Items below remain <strong>open</strong>, except those explicitly marked as closed. #58 must retain evidence and update FR/EN pages together before any distribution beyond the internal track; #36 repeats it on the release candidate. Integrations can consume the invariants above immediately.</p>
 <ol>
   <li><strong>Identity and contact:</strong> publish the studio name and a working contact, state the non-professional status, and check delivery and rights procedures, including children’s representatives. Identification information required by providers or competent authorities is supplied directly; the personal address is not published in these documents.</li>
   <li><strong>Age:</strong> approve thresholds/territories and category version; prove absence of exact age from saves, logs and transmissions, plus protective fallback and correction.</li>
   <li><strong>SDKs and inventories:</strong> freeze #33/#34 versions and configurations, verify payloads and automatic metadata of all four services, recipients, purposes and absence of a shared Aptabase/UGS identifier.</li>
-  <li><strong>Aptabase without consent:</strong> justify the legal basis and any exemption, including for children, with event scope and IP/User-Agent processing. The provider states up to five years’ retention: approve an appropriate period and options to shorten it. If the model is not validated, block its distribution and revise #33/#61 instead of silently adding consent.</li>
+  <li><strong>Aptabase without consent — reservation lifted on 8 October 2026:</strong> the publisher confirms service configuration and validation of the tracking scope for this use, including protected profiles. This closure covers the minimal measurement described in the policy, independent of the UGS choice. Retention and transfer checks remain tracked in the next item.</li>
   <li><strong>Retention and transfers:</strong> document periods per data type, queues and backups, contracting entities, subprocessors, Aptabase’s EU region and possible transfers/safeguards of other services.</li>
   <li><strong>Choices and deletion:</strong> device evidence for initial/late consent, refusal, withdrawal, age correction and UGS deletion, including offline/restart; define provider confirmation, time limits, Aptabase limitations and separate Google requests.</li>
   <li><strong>Advertising:</strong> verify published UMP form, silent refresh, permitted requests, privacy options, Families and G content on the real configuration; no personalisation for protected profiles.</li>

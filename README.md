@@ -44,8 +44,8 @@ pas « aucune donnée traitée par l’hébergeur ».
 ## Points de vigilance de contenu
 
 - Aptabase est prévu pour tous les profils et reste indépendant du choix UGS.
-  Le fonctionnement sans consentement doit être justifié sur l’inventaire réel,
-  notamment pour les enfants ; le qualificatif « anonyme » ne suffit pas.
+  La réserve sur ce fonctionnement est levée le 8 octobre 2026 sur confirmation
+  par l’éditeur de la configuration et de la validation du périmètre de tracking.
 - La politique Aptabase consultée le 7 septembre 2026 annonce jusqu’à cinq ans
   de conservation et l’absence de suppression individuelle. Ne pas transformer
   ce maximum fournisseur en durée validée pour le jeu.
@@ -87,6 +87,9 @@ SDK retenu : #58 doit les rapprocher des versions et configurations effectivemen
 livrées. Aucune durée, base juridique ou déclaration store n’est validée par défaut.
 
 ## Historique
+
+- 2026-10-08 — révision 1.2 : réserve Aptabase sans consentement levée dans
+  les pages FR/EN sur confirmation de l’éditeur ; autres vérifications conservées.
 
 - 2026-09-07 — v0.2 préparatoire : contenu FR/EN étoffé, hébergeur et services
   distingués, inventaires initiaux, arrêt/suppression, CGU et support précisés,

@@ -19,7 +19,7 @@
   </header>
   <main id="content">
     <h1>Contrats d’intégration de confidentialité</h1>
-    <p class="meta">Révision 1.1 — publication et entrée en vigueur pour le parcours décrit : <time datetime="2026-10-04">4 octobre 2026</time>.</p>
+    <p class="meta">Révision 1.2 — publication et entrée en vigueur pour le parcours décrit : <time datetime="2026-10-08">8 octobre 2026</time>.</p>
     <p class="notice">Cette révision décrit le parcours de confidentialité implémenté. La qualification du jeu Android et la vérification des configurations fournisseurs restent nécessaires avant diffusion au-delà des tests internes.</p>
     <nav aria-label="Navigation légale">
       <a href="/meeple-factory-legal/">Accueil</a>
@@ -28,7 +28,7 @@
       <a href="/meeple-factory-legal/support/">Support</a>
       <a href="/meeple-factory-legal/contracts/" aria-current="page">Contrats d’intégration</a>
     </nav>
-<p>Cette page s’adresse aux personnes qui intègrent et vérifient les services du jeu. Les invariants ci-dessous constituent le socle de confidentialité révisé 1.1. Les éléments signalés dans le registre final restent à vérifier avant diffusion ; ils ne rendent pas les invariants facultatifs. Les noms d’états décrivent un contrat de données, pas une API fournisseur à appeler depuis le gameplay.</p>
+<p>Cette page s’adresse aux personnes qui intègrent et vérifient les services du jeu. Les invariants ci-dessous constituent le socle de confidentialité révisé 1.2. Les éléments signalés dans le registre final restent à vérifier avant diffusion ; ils ne rendent pas les invariants facultatifs. Les noms d’états décrivent un contrat de données, pas une API fournisseur à appeler depuis le gameplay.</p>
 <h2>1. Catégorie minimale et résolution de l’âge</h2>
 <p>Persister le format versionné de confidentialité, la tranche déclarée (moins de X ans, X–17 ans, 18–25 ans, 26–40 ans ou 41 ans et plus), le seuil X utilisé et la catégorie dérivée <code>protected</code>, <code>general</code> ou <code>unknown</code>, séparément de l’achèvement du parcours. Aucune date de naissance ni aucun âge exact n’est demandé, conservé, journalisé ou envoyé. Un format ancien, inconnu ou invalide impose un nouveau choix de tranche et d’Analytics, avec protection par défaut. La progression et les demandes de suppression sont conservées.</p>
 <p class="table-hint">Sur petit écran, faites défiler le tableau horizontalement.</p>
@@ -110,12 +110,12 @@
 </ul>
 <p>Les numéros identifient le suivi du projet, sans reproduire le code ni les identifiants privés. Les adaptateurs peuvent être testés avec des profils QA conformes à ces contrats avant la livraison de l’UX finale ; leur clôture technique ne vaut pas autorisation de diffusion.</p>
 <h2 id="finalization">9. Registre de finalisation — responsabilité #58</h2>
-<p>Tous les points ci-dessous sont <strong>ouverts</strong>. #58 doit conserver les preuves puis actualiser ensemble les pages FR/EN avant toute diffusion hors piste interne ; #36 les rejoue sur la release candidate. Les invariants ci-dessus sont consommables immédiatement par les intégrations.</p>
+<p>Les points ci-dessous restent <strong>ouverts</strong>, sauf ceux explicitement signalés comme clôturés. #58 doit conserver les preuves puis actualiser ensemble les pages FR/EN avant toute diffusion hors piste interne ; #36 les rejoue sur la release candidate. Les invariants ci-dessus sont consommables immédiatement par les intégrations.</p>
 <ol>
   <li><strong>Identité et contact :</strong> publier le nom de studio et un contact fonctionnel, indiquer le statut non professionnel et vérifier la réception ainsi que les modalités de droits, y compris pour les représentants d’enfants. Les informations d’identification requises sont communiquées directement aux prestataires ou autorités compétentes ; l’adresse personnelle n’est pas publiée dans ces documents.</li>
   <li><strong>Âge :</strong> approuver les seuils/territoires et la version de catégorie ; prouver l’absence d’âge exact dans les sauvegardes, logs et envois, ainsi que le repli protecteur et la correction.</li>
   <li><strong>SDK et inventaires :</strong> figer les versions et configurations #33/#34, vérifier les payloads et métadonnées automatiques des quatre services, les destinataires, finalités et absence d’identifiant commun Aptabase/UGS.</li>
-  <li><strong>Aptabase sans consentement :</strong> justifier la base juridique et l’éventuelle exemption, y compris pour les enfants, avec portée des événements et traitement IP/User-Agent. Le fournisseur annonce jusqu’à cinq ans de conservation : approuver une durée adaptée et les possibilités de réduction. Si le modèle n’est pas validé, bloquer sa diffusion et réviser #33/#61 au lieu d’ajouter silencieusement un consentement.</li>
+  <li><strong>Aptabase sans consentement — réserve levée le 8 octobre 2026 :</strong> l’éditeur confirme la configuration du service et la validation du périmètre de tracking pour cet usage, y compris pour les profils protégés. La levée porte sur la mesure minimale décrite dans la politique, indépendante du choix UGS. Les vérifications de conservation et de transfert restent suivies au point suivant.</li>
   <li><strong>Conservations et transferts :</strong> documenter durées par donnée, files et sauvegardes, entités contractantes, sous-traitants, région UE Aptabase et éventuels transferts/garanties des autres services.</li>
   <li><strong>Choix et suppression :</strong> preuves sur appareil de l’accord initial/tardif, refus, retrait, correction d’âge et suppression UGS, y compris hors ligne/redémarrage ; définir confirmation fournisseur, délais, limites Aptabase et demandes Google distinctes.</li>
   <li><strong>Publicité :</strong> vérifier formulaire UMP publié, mise à jour silencieuse, requêtes permises, options de confidentialité, Families et contenu G sur la configuration réelle ; aucune personnalisation pour les profils protégés.</li>
