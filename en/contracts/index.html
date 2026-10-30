@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Meeple Factory privacy integration contracts — English draft for Android / Google Play.">
+  <meta name="description" content="Meeple Factory privacy integration contracts — English information for Android / Google Play.">
   <meta name="referrer" content="no-referrer">
   <title>Privacy integration contracts — Meeple Factory</title>
   <link rel="stylesheet" href="/meeple-factory-legal/styles.css">
@@ -27,9 +27,9 @@
     </nav>
 
     <h1>Privacy integration contracts</h1>
-    <p class="meta">Revision 1.2 — published and effective for the described flow: <time datetime="2026-10-08">8 October 2026</time>.</p>
-    <p class="notice">This revision describes the implemented privacy flow. Android release qualification and provider-configuration verification remain necessary before distribution beyond internal testing.</p>
-<p>This page is for people integrating and verifying game services. The invariants below form the revised 1.2 privacy baseline. Items in the final register still need verification before distribution; they do not make the invariants optional. State names describe a data contract, not a provider API to call from gameplay.</p>
+    <p class="meta">Revision 1.3 — published and effective: <time datetime="2026-10-30">30 October 2026</time>.</p>
+    <p class="notice">This revision describes the implemented privacy flow. This publication does not complete the distributed Android build and provider-configuration checks listed in the register below.</p>
+<p>This page is for people integrating and verifying game services. The invariants below form the revision 1.3 privacy baseline published on 30 October 2026. Items in the final register still need verification before distribution; they do not make the invariants optional. State names describe a data contract, not a provider API to call from gameplay.</p>
 <h2>1. Minimum category and age resolution</h2>
 <p>Persist the versioned privacy format, declared age group (under X, X–17, 18–25, 26–40 or 41 and over), threshold X used and derived <code>protected</code>, <code>general</code> or <code>unknown</code> category, separately from flow completion. No date of birth or exact age is requested, retained, logged or sent. A legacy, unknown or invalid format requires new age-group and Analytics choices with protection by default. Progression and deletion requests are preserved.</p>
 <p class="table-hint">On small screens, scroll the table horizontally.</p>
@@ -48,12 +48,13 @@
 <ol>
   <li>Load states with protection and denied UGS intent by default. Minimal Aptabase may measure launch without waiting for UGS, subject to distribution validation in the register below.</li>
   <li>Resolve the age flow before any age-dependent initialisation.</li>
-  <li>For <code>general</code> only, offer the UGS choice once, with refusal as accessible as acceptance. Do not ask protected/unknown profiles for UGS consent.</li>
+  <li>Show “Before you start” to everyone: unchecked required terms and unchecked optional statistics for a new eligible profile, hidden below the threshold. Continue depends only on terms and saves accepted revision/UTC date separately from UGS choice. Preserve existing age and intent; request only unfinished steps.</li>
   <li>Update UMP with the appropriate treatment; display its form only if required, then read its request authorisation.</li>
   <li>Enter the game. A network or provider failure does not block the free path.</li>
 </ol>
-<p>Decisions are separate: age, UGS intent and UMP state. Minimal Aptabase is not a fourth consent and does not depend on UGS or UMP choices. The policy is informational; reading it, the terms or a global button never gives consent.</p>
+<p>Decisions are separate: age, terms revision/UTC date, UGS intent and UMP state. Minimal Aptabase is not a fourth consent and does not depend on UGS or UMP choices. The policy is informational; reading it, the terms or Continue without the statistics checkbox never grants UGS consent.</p>
 <p>At later launches, UMP silently refreshes its state. Refusal or a limited choice is resolved: no ordinary repeated prompts. A form returns only on request from settings or when the provider requires a new decision/expiry. An interrupted UGS choice stays unknown with no collection; only the unfinished step remains to be resolved.</p>
+<h2>Settings panel</h2><p>One panel combines age group, statistics checkbox, deletion with Cancel/Request deletion confirmation, available UMP choices and legal links. Save changes before showing success. Moving below the threshold stops/purges; moving back to an eligible group leaves intent denied until new permission. Between eligible groups, preserve intent. Do not reopen legacy views or request terms again. Keep deletion available to protected profiles. Never treat upload acknowledgment as completed erasure.</p>
 <h2>3. Analytics matrix</h2>
 <p class="table-hint">On small screens, scroll the table horizontally.</p>
 <div class="table-scroll" role="region" aria-label="Analytics routing" tabindex="0"><table>
@@ -111,9 +112,9 @@
 </ul>
 <p>Numbers identify project tracking without reproducing private code or identifiers. Adapters can be tested with QA profiles following these contracts before final UX delivery; technical completion is not permission to distribute.</p>
 <h2 id="finalization">9. Finalisation register — owned by #58</h2>
-<p>Items below remain <strong>open</strong>, except those explicitly marked as closed. #58 must retain evidence and update FR/EN pages together before any distribution beyond the internal track; #36 repeats it on the release candidate. Integrations can consume the invariants above immediately.</p>
+<p>Items below remain <strong>open</strong>, except those explicitly marked as closed. Publishing the documents on 30 October 2026 does not close these items. Version 1.1.0 is distributed through closed testing; provider-configuration and device-behaviour evidence remain separate from that distribution status. Integrations can consume the invariants above immediately.</p>
 <ol>
-  <li><strong>Identity and contact:</strong> publish the studio name and a working contact, state the non-professional status, and check delivery and rights procedures, including children’s representatives. Identification information required by providers or competent authorities is supplied directly; the personal address is not published in these documents.</li>
+  <li><strong>Identity and contact:</strong> Counting Twice and countingtwice@maugrey.net are published on the FR/EN pages. Actual mail delivery and rights procedures, including requests from children’s representatives, remain separate checks. Identification information required by providers or competent authorities is supplied directly; the personal address is not published in these documents.</li>
   <li><strong>Age:</strong> approve thresholds/territories and category version; prove absence of exact age from saves, logs and transmissions, plus protective fallback and correction.</li>
   <li><strong>SDKs and inventories:</strong> freeze #33/#34 versions and configurations, verify payloads and automatic metadata of all four services, recipients, purposes and absence of a shared Aptabase/UGS identifier.</li>
   <li><strong>Aptabase without consent — reservation lifted on 8 October 2026:</strong> the publisher confirms service configuration and validation of the tracking scope for this use, including protected profiles. This closure covers the minimal measurement described in the policy, independent of the UGS choice. Retention and transfer checks remain tracked in the next item.</li>

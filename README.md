@@ -22,6 +22,10 @@ vente ou ressource tierce intégrée. GitHub conserve ses propres journaux de
 sécurité, comme expliqué dans la politique : « sans tracker ajouté » ne signifie
 pas « aucune donnée traitée par l’hébergeur ».
 
+## Publication du 30 octobre 2026
+
+La politique de confidentialité 1.3 et les CGU 1.0 sont publiées en français et en anglais. Les pages décrivent le parcours de la version Android 1.1.0 distribuée en test fermé, conservent les URL existantes et le contact countingtwice@maugrey.net. Les réserves de configuration fournisseur et de qualification Android restent explicites dans la politique et le registre. Les notes de préparation ci-dessous sont historiques lorsqu’elles décrivent les versions v0.2 ou les anciennes dates de publication.
+
 ## Statut et responsabilités
 
 - Les comportements du jeu décrivent la **cible v1.0**, pas une attestation des
@@ -66,7 +70,7 @@ vers le même document et les versions/dates synchronisées. Documenter toute
 évolution des invariants pour les intégrations ; ne pas la faire passer pour une
 simple modification de traduction.
 
-Avant publication, vérifier les dix pages sur mobile et ordinateur, la navigation
+Avant publication, vérifier les douze pages sur mobile et ordinateur, la navigation
 et les ancres, l’absence de ressources externes intégrées, de script, formulaire
 ou stockage applicatif, puis les URL HTTPS après déploiement. Les liens vers les
 politiques des fournisseurs ne remplacent pas l’inventaire du build.
